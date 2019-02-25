@@ -101,6 +101,7 @@ public class MapRouteInfoMenu implements IRouteInformationListener, CardListener
 	private static boolean visible;
 	public static boolean controlVisible = false;
 	public static boolean chooseRoutesVisible = false;
+	public static boolean routeDetailsVisible = false;
 
 	private final RoutingHelper routingHelper;
 	private final TransportRoutingHelper transportHelper;

@@ -10,6 +10,9 @@
 	- For wording and consistency, please note https://osmand.net/help-online?id=technical-articles#Creating_a_Consistent_User_Experience
 	Thx - Hardy
 -->
+    <string name="on_the_foot">on foot</string>
+    <string name="exit_at_the_stop">Exit at the stop</string>
+    <string name="sit_on_the_stop">Sit on the stop</string>
     <string name="shared_string_swap">Swap</string>
     <string name="show_more">Show more</string>
     <string name="tracks_on_map">Tracks on the map</string>

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/route_info_stat_item">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/route_info_stat_item"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:src="@drawable/ic_action_circle"
-            android:id="@+id/route_stat_item_image"
-            android:paddingLeft="16dp"/>
+		<ImageView
+			android:id="@+id/route_stat_item_image"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingLeft="@dimen/content_padding"
+			android:paddingRight="@dimen/content_padding"
+			tools:src="@drawable/ic_action_circle" />
 
-        <TextView
-            android:id="@+id/route_stat_item_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"/>
+		<TextView
+			android:id="@+id/route_stat_item_text"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
 
-    </LinearLayout>
+	</LinearLayout>
 
 </LinearLayout>

@@ -1,6 +1,12 @@
 package net.osmand.router;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class RouteStatistics {
 
@@ -39,8 +45,11 @@ public class RouteStatistics {
 
         private final List<RouteSegmentResult> route;
 
-        public RouteStatisticComputer(List<RouteSegmentResult> route) {
+        private final StatisticType type;
+
+        public RouteStatisticComputer(List<RouteSegmentResult> route, StatisticType type) {
             this.route = route;
+            this.type = type;
         }
 
         protected Map<E, RouteSegmentAttribute<E>> makePartition(List<RouteSegmentAttribute<E>> routeAttributes) {
@@ -93,7 +102,7 @@ public class RouteStatistics {
             List<RouteSegmentAttribute<E>> routeAttributes = processRoute();
             Map<E, RouteSegmentAttribute<E>> partition = makePartition(routeAttributes);
             float totalDistance = computeTotalDistance(routeAttributes);
-            return new Statistics<>(routeAttributes, partition, totalDistance);
+            return new Statistics<>(routeAttributes, partition, totalDistance, type);
         }
 
         public abstract E getAttribute(RouteSegmentResult segment);
@@ -105,7 +114,7 @@ public class RouteStatistics {
     private static class RouteSurfaceStatisticComputer extends RouteStatisticComputer<String> {
 
         public RouteSurfaceStatisticComputer(List<RouteSegmentResult> route) {
-            super(route);
+            super(route, StatisticType.SURFACE);
         }
 
         @Override
@@ -132,7 +141,7 @@ public class RouteStatistics {
     private static class RouteSmoothnessStatisticComputer extends RouteStatisticComputer<String> {
 
         public RouteSmoothnessStatisticComputer(List<RouteSegmentResult> route) {
-            super(route);
+            super(route, StatisticType.SMOOTHNESS);
         }
 
         @Override
@@ -160,7 +169,7 @@ public class RouteStatistics {
     private static class RouteClassStatisticComputer extends RouteStatisticComputer<String> {
 
         public RouteClassStatisticComputer(List<RouteSegmentResult> route) {
-            super(route);
+            super(route, StatisticType.CLASS);
         }
 
         @Override
@@ -193,7 +202,7 @@ public class RouteStatistics {
         private final List<Incline> inclines;
 
         public RouteSteepnessStatisticComputer(List<Incline> inclines) {
-            super(null);
+            super(null, StatisticType.STEEPNESS);
             this.inclines = inclines;
         }
 
@@ -407,13 +416,15 @@ public class RouteStatistics {
         private final List<RouteSegmentAttribute<E>> elements;
         private final Map<E, RouteSegmentAttribute<E>> partition;
         private final float totalDistance;
+        private final StatisticType type;
 
         private Statistics(List<RouteSegmentAttribute<E>> elements,
                           Map<E, RouteSegmentAttribute<E>> partition,
-                          float totalDistance) {
+                          float totalDistance, StatisticType type) {
             this.elements = elements;
             this.partition = partition;
             this.totalDistance = totalDistance;
+            this.type = type;
         }
 
         public float getTotalDistance() {
@@ -426,6 +437,10 @@ public class RouteStatistics {
 
         public Map<E, RouteSegmentAttribute<E>> getPartition() {
             return partition;
+        }
+
+        public StatisticType getStatisticType() {
+            return type;
         }
     }
 
@@ -526,5 +541,12 @@ public class RouteStatistics {
         public String getColorAttrName() {
             return this.colorAttrName;
         }
+    }
+
+    public enum StatisticType {
+        CLASS,
+        SURFACE,
+        SMOOTHNESS,
+        STEEPNESS
     }
 }

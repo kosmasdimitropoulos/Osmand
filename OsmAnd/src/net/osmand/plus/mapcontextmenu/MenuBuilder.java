@@ -31,18 +31,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.osmand.AndroidUtils;
+import net.osmand.PlatformUtil;
 import net.osmand.binary.BinaryMapIndexReader;
 import net.osmand.data.Amenity;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
 import net.osmand.data.QuadRect;
 import net.osmand.osm.PoiCategory;
-import net.osmand.plus.UiUtilities;
 import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.OsmandSettings.OsmandPreference;
 import net.osmand.plus.R;
+import net.osmand.plus.UiUtilities;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.helpers.FontCache;
 import net.osmand.plus.mapcontextmenu.builders.cards.AbstractCard;
@@ -51,12 +52,14 @@ import net.osmand.plus.mapcontextmenu.builders.cards.ImageCard;
 import net.osmand.plus.mapcontextmenu.builders.cards.ImageCard.GetImageCardsTask;
 import net.osmand.plus.mapcontextmenu.builders.cards.NoImagesCard;
 import net.osmand.plus.mapcontextmenu.controllers.TransportStopController;
-import net.osmand.plus.transport.TransportStopRoute;
 import net.osmand.plus.render.RenderingIcons;
+import net.osmand.plus.transport.TransportStopRoute;
 import net.osmand.plus.views.TransportStopsLayer;
 import net.osmand.plus.widgets.TextViewEx;
 import net.osmand.util.Algorithms;
 import net.osmand.util.MapUtils;
+
+import org.apache.commons.logging.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,9 +69,11 @@ import java.util.List;
 import java.util.Map;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-import static net.osmand.plus.mapcontextmenu.builders.cards.ImageCard.GetImageCardsTask.*;
+import static net.osmand.plus.mapcontextmenu.builders.cards.ImageCard.GetImageCardsTask.GetImageCardsListener;
 
 public class MenuBuilder {
+
+	private static final Log log = PlatformUtil.getLog(MenuBuilder.class);
 
 	public static final float SHADOW_HEIGHT_TOP_DP = 17f;
 	public static final int TITLE_LIMIT = 60;
@@ -202,7 +207,7 @@ public class MenuBuilder {
 			if (collapseExpandListener != null) {
 				collapseExpandListener.onCollapseExpand(collapsed);
 			}
-			if (menuBuilder.collapseExpandListener != null) {
+			if (menuBuilder != null && menuBuilder.collapseExpandListener != null) {
 				menuBuilder.collapseExpandListener.onCollapseExpand(collapsed);
 			}
 		}
@@ -303,6 +308,7 @@ public class MenuBuilder {
 	}
 
 	public void build(View view) {
+		long start = System.currentTimeMillis();
 		firstRow = true;
 		hidden = false;
 		buildTopInternal(view);
@@ -319,6 +325,8 @@ public class MenuBuilder {
 		}
 		buildPluginRows(view);
 //		buildAfter(view);
+		long end = System.currentTimeMillis();
+		log.debug("time = " + (end - start));
 	}
 
 	private boolean showTransportRoutes() {
@@ -770,19 +778,6 @@ public class MenuBuilder {
 		}
 	}
 
-	private String adjustRouteRef(String ref) {
-		if (ref != null) {
-			int charPos = ref.lastIndexOf(':');
-			if (charPos != -1) {
-				ref = ref.substring(0, charPos);
-			}
-			if (ref.length() > 4) {
-				ref = ref.substring(0, 4);
-			}
-		}
-		return ref;
-	}
-
 	public int dpToPx(float dp) {
 		Resources r = app.getResources();
 		return (int) TypedValue.applyDimension(
@@ -823,7 +818,7 @@ public class MenuBuilder {
 		transportRect.setTextColor(UiUtilities.getContrastColor(app, bgColor, true));
 
 		transportRect.setBackgroundDrawable(shape);
-		transportRect.setText(adjustRouteRef(route.route.getRef()));
+		transportRect.setText(route.route.getAdjustedRouteRef());
 		baseView.addView(transportRect);
 
 		LinearLayout infoView = new LinearLayout(view.getContext());

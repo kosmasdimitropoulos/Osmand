@@ -1,37 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:osmand="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:osmand="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="?attr/bg_color"
-        android:paddingTop="8dp">
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_gravity="center_vertical"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/distance_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_route_distance" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
+
+                <net.osmand.plus.widgets.TextViewEx
+                    android:id="@+id/distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="26 km"
+                    android:textColor="?attr/routeParameterTitleColor"
+                    android:textSize="@dimen/default_list_text_size"
+                    osmand:typeface="@string/font_roboto_medium" />
+
+                <TextView
+                    android:id="@+id/distance_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/total_distance"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="@dimen/default_sub_text_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/time_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_time_span" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
+
+                <net.osmand.plus.widgets.TextViewEx
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="20 min"
+                    android:textColor="?attr/routeParameterTitleColor"
+                    android:textSize="@dimen/default_list_text_size"
+                    osmand:typeface="@string/font_roboto_medium" />
+
+                <TextView
+                    android:id="@+id/time_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/shared_string_time"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="@dimen/default_sub_text_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:background="?attr/bg_color"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/bg_color"
+        android:orientation="horizontal"
         android:paddingBottom="4dp">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingLeft="16dp">
 
@@ -40,23 +135,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_altitude_average"/>
+                android:src="@drawable/ic_action_altitude_average" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="18dp">
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
 
                 <net.osmand.plus.widgets.TextViewEx
                     android:id="@+id/average_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    tools:text="40 m"
                     android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/default_desc_text_size"
                     osmand:typeface="@string/font_roboto_medium"
-                    android:textSize="@dimen/default_desc_text_size"/>
+                    tools:text="40 m" />
 
                 <TextView
                     android:id="@+id/average_desc"
@@ -65,7 +160,7 @@
                     android:background="@null"
                     android:text="@string/average_altitude"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="@dimen/default_sub_text_size"/>
+                    android:textSize="@dimen/default_sub_text_size" />
 
             </LinearLayout>
 
@@ -83,23 +178,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_altitude_average"/>
+                android:src="@drawable/ic_action_altitude_average" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="18dp">
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
 
                 <net.osmand.plus.widgets.TextViewEx
                     android:id="@+id/range_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    tools:text="30m - 53m"
                     android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/default_desc_text_size"
                     osmand:typeface="@string/font_roboto_medium"
-                    android:textSize="@dimen/default_desc_text_size"/>
+                    tools:text="30m - 53m" />
 
                 <TextView
                     android:id="@+id/range_desc"
@@ -108,7 +203,7 @@
                     android:background="@null"
                     android:text="@string/altitude_range"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="@dimen/default_sub_text_size"/>
+                    android:textSize="@dimen/default_sub_text_size" />
 
             </LinearLayout>
 
@@ -119,15 +214,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:background="?attr/bg_color"
+        android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="8dp">
@@ -135,7 +230,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dashboard_divider"/>
+                android:background="?attr/dashboard_divider" />
 
         </LinearLayout>
 
@@ -150,7 +245,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/dashboard_divider"/>
+                android:background="?attr/dashboard_divider" />
 
         </LinearLayout>
 
@@ -159,15 +254,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:background="?attr/bg_color"
+        android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingLeft="16dp">
 
@@ -176,23 +271,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_altitude_ascent"/>
+                android:src="@drawable/ic_action_altitude_ascent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="18dp">
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
 
                 <net.osmand.plus.widgets.TextViewEx
                     android:id="@+id/ascent_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    tools:text="174"
                     android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/default_desc_text_size"
                     osmand:typeface="@string/font_roboto_medium"
-                    android:textSize="@dimen/default_desc_text_size"/>
+                    tools:text="174" />
 
                 <TextView
                     android:id="@+id/ascent_desc"
@@ -201,7 +296,7 @@
                     android:background="@null"
                     android:text="@string/altitude_ascent"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="@dimen/default_sub_text_size"/>
+                    android:textSize="@dimen/default_sub_text_size" />
 
             </LinearLayout>
 
@@ -219,23 +314,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_altitude_descent"/>
+                android:src="@drawable/ic_action_altitude_descent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="18dp">
+                android:layout_marginLeft="18dp"
+                android:orientation="vertical">
 
                 <net.osmand.plus.widgets.TextViewEx
                     android:id="@+id/descent_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    tools:text="164"
                     android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/default_desc_text_size"
                     osmand:typeface="@string/font_roboto_medium"
-                    android:textSize="@dimen/default_desc_text_size"/>
+                    tools:text="164" />
 
                 <TextView
                     android:id="@+id/descent_desc"
@@ -244,231 +339,12 @@
                     android:background="@null"
                     android:text="@string/altitude_descent"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:textSize="@dimen/default_sub_text_size"/>
+                    android:textSize="@dimen/default_sub_text_size" />
 
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="?attr/bg_color"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="4dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/route_class_stat_container"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/route_class_stat_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:id="@+id/route_class_stat_items"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="?attr/bg_color"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/route_surface_stat_container"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/route_surface_stat_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:id="@+id/route_surface_stat_items"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="?attr/bg_color"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/route_smoothness_stat_container"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/route_smoothness_stat_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:id="@+id/route_smoothness_stat_items"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="?attr/bg_color"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/route_steepness_stat_container"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/route_steepness_stat_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:id="@+id/route_steepness_stat_items"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?attr/bg_color"
-        android:paddingTop="4dp"
-        android:paddingBottom="8dp">
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/dashboard_divider"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/bg_color"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/details_view"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:background="?attr/selectableItemBackground"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:gravity="center">
-
-            <net.osmand.plus.widgets.TextViewEx
-                android:id="@+id/details_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:textColor="?attr/color_dialog_buttons"
-                android:textSize="@dimen/default_sub_text_size"
-                osmand:textAllCapsCompat="true"
-                osmand:typeface="@string/font_roboto_medium"
-                android:text="@string/analyze_on_map"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <include layout="@layout/list_item_divider"/>
 
 </LinearLayout>
